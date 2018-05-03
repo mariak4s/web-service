@@ -13,7 +13,9 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 ## SOAP API
 
 **Teenuse nimetus:** 
+
 **API token:** salajane
+
 **Disain:** XSD puhul kasutatakse *Venetian Blind* mustrit: kõik tüübid on globaalsed ja elemendid on lokaalsed. Operatsioonide ja elementide nimetamiseks kasutatakes *lower camelCase* stiili ning need on teineteisega vastavuses (operatsioonile getClub vastab getTrainingClubResponse, mille sisuks on ClubType). Elementide puhul on tegemist XML Schema andmetüüpidega. Lisaks on elementide puhul defineeritud lihttüübid (*simpleType*) ja komplekstüübid (*complexType*).
 
 **Lihttüübid:**
