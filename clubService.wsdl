@@ -115,6 +115,25 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="getClubListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubCity" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubName" type="xs:string"/>
+                        <xs:element minOccurs="0" name="hasRelatedTrainings" type="tns:hasRelatedTrainingsType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="club" type="tns:clubType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
             
         </xs:schema>
     </wsdl:types>
