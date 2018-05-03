@@ -12,7 +12,7 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 
 ## SOAP API
 
-**Teenuse nimetus:** 
+**Teenuse nimetus:** ClubWebService
 
 **API token:** salajane
 
@@ -20,9 +20,10 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 
 **Lihttüübid:**
 
-| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
-|:--- |:--- |:---: |:--- |
-| trainingStyleType  | String | +  | "strength", "cardio", "body&mind" |
+| Parameeter | Andmetüüp | Võimalikud väärtused |
+|:--- |:--- |:---: |
+| trainingStyleType  | String | "strength", "cardio", "body&mind" |
+| hasRelatedTrainingsType | String | "yes", "no" |
 
 **Komplekstüübid:**
 
