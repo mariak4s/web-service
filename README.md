@@ -55,7 +55,7 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 
 | Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
 |:--- |:--- |:---: |:--- |
-| training  | trainingType | - | Soovitud treeningklubi treening |
+| training  | trainingType | + | Soovitud treeningklubi treening |
 | startDate | date |+ | Kuupäev, millest alates on antud klubis treening toimunud. |
 | endDate | date |+ | Treeningu lõpukuupäev.|
 | status | trainingStatusType |+ | Treeningu staatus. Aktiivne, kui treeningud toimuvad klubis ja mitteaktiivne, kui antud klubis antud treeningut ei ole. |
@@ -70,6 +70,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 ..võimaldab süsteemi lisada uue treeningklubi koos seda kirjeldavate parameetritega. 
 
 **Sisend:** addClubRequest
+
 | Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
 |:--- |:--- |:---: |:--- |
 | token  | String | +  | Kliendi autentimiseks kasutatav kood. |
@@ -106,7 +107,19 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 ..võimaldab süsteemist küsida treeningklubide nimekirja. Otsingut saab filtreerida riigi, linna ja treeningute olemasolu järgi.
 
 **Sisend:** getClubListRequest
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| clubCity | String |- | Linn, kus treeningklubi asub. |
+| clubName | String | - | Treeningklubi nimi. |
+| hasRelatedTrainings | hasRelatedTrainingsType | - | Võimalikud väärtused: "yes", "no". |
+
 **Väljund:** getClubListResponse
+
+| Parameeter  | Andmetüüp  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| club  | clubType | (0 või rohkem) Treeningklubi, mis on eelnevalt sisestatud, millel on id ja sobib päringus esitatud väärtustega. |
 
 #### addTraining
 ..võimaldab süsteemi lisada uue treeningu koos seda kirjeldavate parameetritega. 
