@@ -10,7 +10,7 @@
             
             <xs:simpleType name="trainingStyleType">
                 <xs:restriction base="xs:string">
-                    <xs:pattern value="strength|cardio|body&mind"/>
+                    <xs:pattern value="strength|cardio|bodyAndMind"/>
                 </xs:restriction>
             </xs:simpleType>
             
