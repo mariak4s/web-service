@@ -24,6 +24,8 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 |:--- |:--- |:---: |
 | trainingStyleType  | String | "strength", "cardio", "body&mind" |
 | hasRelatedTrainingsType | String | "yes", "no" |
+| clubStatusType | String | "open", "closed" |
+| trainingStatusType | String | "active", "inactive" |
 
 **Komplekstüübid:**
 
@@ -38,19 +40,64 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 | durationInMins | Integer |+ | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
 | trainingCapacity | Integer |+ | Treeningu kohtade arv. |
 
+* **clubType**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
+|:--- |:--- |:---: |:--- |
+| id  | Integer | - | Treeningklubi unikaalne identifikaator, mis määratakse süsteemi poolt automaatselt. |
+| clubName | String |+ | Treeningklubi nimi. |
+| clubCountry | String |+ | Riik, kus treeningklubi asub.|
+| clubCity | String |+ | Linn, kus treeningklubi asub.|
+| clubStatus | clubStatusType |+ | Kirjeldab, kas klubi on avatud või suletud. |
+| clubTrainingList | clubTrainingList |+ | Nimekiri klubi treeningutest. |
+
+* **clubTrainingType**
+| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
+|:--- |:--- |:---: |:--- |
+| training  | trainingType | - | Soovitud treeningklubi treening |
+| startDate | date |+ | Kuupäev, millest alates on antud klubis treening toimunud. |
+| endDate | date |+ | Treeningu lõpukuupäev.|
+| status | trainingStatusType |+ | Treeningu staatus. Aktiivne, kui treeningud toimuvad klubis ja mitteaktiivne, kui antud klubis antud treeningut ei ole. |
+
+clubTrainingListType - clubTraining clubTrainingType Küsitud treeningklubi treeningute nimekirja kuuluv treening.
+
 ### Operatsioonid
 
 #### addClub
 ..võimaldab süsteemi lisada uue treeningklubi koos seda kirjeldavate parameetritega. Peale lisamist kuvatakse lisatud andmed peale *token*-i.
 
 **Sisend:** addClubRequest
+| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer |- | Päringu unikaalne identifikaator. |
+| clubName | String |+ | Treeningklubi nimi. |
+| clubCountry | String |+ | Riik, kus treeningklubi asub.|
+| clubCity | String |+ | Linn, kus treeningklubi asub.|
+| clubStatus | clubStatusType |+ | Kirjeldab, kas klubi on avatud või suletud. |
+
 **Väljund:** addClubResponse
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| responseCode | Integer | -  | Päringust saadud unikaalne identifikaator, millega kontrollitakse *Idempotent Capability* mustrit.|
+| club | clubType | +  | Päringu põhjal genereeritud treeningklubiobjekt. Sisaldab sisendis antud infot ja klubile antud id väärtust. |
 
 #### getClub
 ..võimaldab süsteemist küsida treeningklubi sellele määratud ID põhjal. Peale lisamist kuvatakse lisatud andmed peale *token*-i.
 
 **Sisend:** getClubRequest
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| id  | Integer | + | Treeningklubi unikaalne identifikaator. |
+
 **Väljund:** getClubResponse
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
+|:--- |:--- |:---: |:--- |
+| getClubResponse  | clubType | + | Treeningklubi, mille id väärtus vastab sisendis antule. |
 
 #### getClubList
 ..võimaldab süsteemist küsida treeningklubide nimekirja. Otsingut saab filtreerida riigi, linna ja treeningute olemasolu järgi.
