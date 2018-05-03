@@ -52,6 +52,7 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 | clubTrainingList | clubTrainingList |+ | Nimekiri klubi treeningutest. |
 
 * **clubTrainingType**
+
 | Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
 |:--- |:--- |:---: |:--- |
 | training  | trainingType | - | Soovitud treeningklubi treening |
@@ -63,8 +64,10 @@ clubTrainingListType - clubTraining clubTrainingType Küsitud treeningklubi tree
 
 ### Operatsioonid
 
+NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i väärtust.
+
 #### addClub
-..võimaldab süsteemi lisada uue treeningklubi koos seda kirjeldavate parameetritega. Peale lisamist kuvatakse lisatud andmed peale *token*-i.
+..võimaldab süsteemi lisada uue treeningklubi koos seda kirjeldavate parameetritega. 
 
 **Sisend:** addClubRequest
 | Parameeter  | Andmetüüp | Kohustuslik  | Võimalikud väärtused |
@@ -84,7 +87,7 @@ clubTrainingListType - clubTraining clubTrainingType Küsitud treeningklubi tree
 | club | clubType | +  | Päringu põhjal genereeritud treeningklubiobjekt. Sisaldab sisendis antud infot ja klubile antud id väärtust. |
 
 #### getClub
-..võimaldab süsteemist küsida treeningklubi sellele määratud ID põhjal. Peale lisamist kuvatakse lisatud andmed peale *token*-i.
+..võimaldab süsteemist küsida treeningklubi sellele määratud ID põhjal. 
 
 **Sisend:** getClubRequest
 
@@ -106,7 +109,7 @@ clubTrainingListType - clubTraining clubTrainingType Küsitud treeningklubi tree
 **Väljund:** getClubListResponse
 
 #### addTraining
-..võimaldab süsteemi lisada uue treeningu koos seda kirjeldavate parameetritega. Peale lisamist kuvatakse lisatud andmed peale *token*-i.
+..võimaldab süsteemi lisada uue treeningu koos seda kirjeldavate parameetritega. 
 
 **Sisend:** addTrainingRequest
 
