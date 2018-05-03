@@ -20,6 +20,18 @@
                 </xs:restriction>
             </xs:simpleType>
 
+            <xs:simpleType name="clubStatusType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="open|closed"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="trainingStatusType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="active|inactive"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
             <xs:complexType name="trainingType">
                 <xs:sequence>
                     <xs:element name="id" type="xs:integer"/>
@@ -28,6 +40,33 @@
                     <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
                     <xs:element name="durationInMins" type="xs:integer"/>
                     <xs:element name="trainingCapacity" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+            
+            <xs:complexType name="clubTrainingType">
+                <xs:sequence>
+                    <xs:element name="training" type="tns:trainingType"/>
+                    <xs:element name="startDate" type="xs:date"/>
+                    <xs:element name="endDate" type="xs:date"/>
+                    <xs:element name="status" type="tns:trainingStatusType"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="clubTrainingListType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="clubTraining"
+                                type="tns:clubTrainingType"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="clubType">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:integer"/>
+                    <xs:element name="clubName" type="xs:string"/>
+                    <xs:element name="clubCountry" type="xs:string"/>
+                    <xs:element name="clubCity" type="xs:string"/>
+                    <xs:element name="clubStatus" type="tns:clubStatusType"/>
+                    <xs:element name="clubTrainingList" type="tns:clubTrainingListType"/>
                 </xs:sequence>
             </xs:complexType>
 
@@ -53,6 +92,29 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            
+            <xs:element name="addClubRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="requestCode" type="xs:integer"/>
+                        <xs:element name="clubName" type="xs:string"/>
+                        <xs:element name="clubCountry" type="xs:string"/>
+                        <xs:element name="clubCity" type="xs:string"/>
+                        <xs:element name="clubStatus" type="tns:clubStatusType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="addClubResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="responseCode" type="xs:integer"/>
+                        <xs:element name="club" type="tns:clubType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
             
         </xs:schema>
     </wsdl:types>
