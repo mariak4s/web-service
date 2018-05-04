@@ -109,7 +109,7 @@
                         <xs:element name="token" type="xs:string"/>
                         <xs:element minOccurs="0" name="clubCity" type="xs:string"/>
                         <xs:element minOccurs="0" name="clubCountry" type="xs:string"/>
-                        <xs:element minOccurs="0" name="clubStatus" type="xs:clubStatusType"/>
+                        <xs:element minOccurs="0" name="clubStatus" type="tns:clubStatusType"/>
                         <xs:element minOccurs="0" name="hasRelatedTrainings" type="tns:hasRelatedTrainingsType"/>
                     </xs:sequence>
                 </xs:complexType>
