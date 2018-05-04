@@ -31,26 +31,26 @@
                     <xs:pattern value="active|inactive"/>
                 </xs:restriction>
             </xs:simpleType>
-            
-            <xs:complexType name="trainingType">
-                <xs:sequence>
-                    <xs:element name="id" type="xs:integer"/>
-                    <xs:element name="name" type="xs:string"/>
-                    <xs:element name="nameOfTheTrainer" type="xs:string"/>
-                    <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
-                    <xs:element name="durationInMins" type="xs:integer"/>
-                    <xs:element name="trainingCapacity" type="xs:integer"/>
-                </xs:sequence>
-            </xs:complexType>
-
+ 
             <xs:complexType name="clubType">
                 <xs:sequence>
                     <xs:element name="id" type="xs:integer"/>
                     <xs:element name="clubName" type="xs:string"/>
-                    <xs:element name="clubCountry" type="xs:string"/>
                     <xs:element name="clubCity" type="xs:string"/>
+                    <xs:element name="clubCountry" type="xs:string"/>
                     <xs:element name="clubStatus" type="tns:clubStatusType"/>
                     <xs:element name="clubTrainingList" type="tns:clubTrainingListType"/>
+                </xs:sequence>
+            </xs:complexType>           
+            
+            <xs:complexType name="trainingType">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:integer"/>
+                    <xs:element name="trainingName" type="xs:string"/>
+                    <xs:element name="trainerName" type="xs:string"/>
+                    <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
+                    <xs:element name="durationInMins" type="xs:integer"/>
+                    <xs:element name="totalPlaces" type="xs:integer"/>
                 </xs:sequence>
             </xs:complexType>
 
@@ -76,8 +76,8 @@
                         <xs:element name="token" type="xs:string"/>
                         <xs:element name="requestCode" type="xs:integer"/>
                         <xs:element name="clubName" type="xs:string"/>
-                        <xs:element name="clubCountry" type="xs:string"/>
                         <xs:element name="clubCity" type="xs:string"/>
+                        <xs:element name="clubCountry" type="xs:string"/>
                         <xs:element name="clubStatus" type="tns:clubStatusType"/>
                     </xs:sequence>
                 </xs:complexType>
@@ -108,7 +108,8 @@
                     <xs:sequence>
                         <xs:element name="token" type="xs:string"/>
                         <xs:element minOccurs="0" name="clubCity" type="xs:string"/>
-                        <xs:element minOccurs="0" name="clubName" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubCountry" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubStatus" type="xs:clubStatusType"/>
                         <xs:element minOccurs="0" name="hasRelatedTrainings" type="tns:hasRelatedTrainingsType"/>
                     </xs:sequence>
                 </xs:complexType>
@@ -127,11 +128,11 @@
                     <xs:sequence>
                         <xs:element name="token" type="xs:string"/>
                         <xs:element name="requestCode" type="xs:integer"/>
-                        <xs:element name="name" type="xs:string"/>
-                        <xs:element name="nameOfTheTrainer" type="xs:string"/>
+                        <xs:element name="trainingName" type="xs:string"/>
+                        <xs:element name="trainerName" type="xs:string"/>
                         <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
                         <xs:element name="durationInMins" type="xs:integer"/>
-                        <xs:element name="trainingCapacity" type="xs:integer"/>
+                        <xs:element name="totalPlaces" type="xs:integer"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -160,8 +161,8 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="token" type="xs:string"/>
-                        <xs:element minOccurs="0" name="name" type="xs:string"/>
-                        <xs:element minOccurs="0" name="nameOfTheTrainer" type="xs:string"/>
+                        <xs:element minOccurs="0" name="trainingName" type="xs:string"/>
+                        <xs:element minOccurs="0" name="trainerName" type="xs:string"/>
                         <xs:element minOccurs="0" name="trainingStyle" type="tns:trainingStyleType"/>
                         <xs:element minOccurs="0" name="durationInMins" type="xs:integer"/>
                         <xs:element minOccurs="0" name="trainingCapacity" type="xs:integer"/>
@@ -183,6 +184,7 @@
                         <xs:element name="token" type="xs:string"/>
                         <xs:element name="requestCode" type="xs:integer"/>
                         <xs:element name="clubId" type="xs:integer"/>
+                        <xs:element name="trainingId" type="xs:integer"/>
                         <xs:element name="startDate" type="xs:date"/>
                         <xs:element name="endDate" type="xs:date"/>
                         <xs:element name="status" type="tns:statusType"/>
