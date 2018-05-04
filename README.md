@@ -217,3 +217,4 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | Andmetüüp  | Kirjeldus |
 |:--- |:--- |
 | clubTrainingListType | (0 või rohkem) Treening, mis on eelnevalt sisestatud, millel on id ja on küsitud treeningklubi treeningute seas. |
+
