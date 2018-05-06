@@ -251,12 +251,51 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | durationInMins | Integer |+ | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
 | trainingCapacity | Integer |+ | Treeningu kohtade arv. |
 
+```xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:trainingName>Nike Training Club</club:trainingName>
+         <club:trainerName>Mari Maasikas</club:trainerName>
+         <club:trainingStyle>strength</club:trainingStyle>
+         <club:durationInMins>55</club:durationInMins>
+         <club:totalPlaces>45</club:totalPlaces>
+      </club:addTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+```
+
 **Väljund:** addTrainingResponse
 
 | Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
 |:--- |:--- |:---: |:--- |
 | responseCode | Integer | +  | Päringust saadud unikaalne identifikaator, millega kontrollitakse *Idempotent Capability* mustrit.|
 | training | trainingType | +  | Päringu põhjal genereeritud treeninguobjekt. Sisaldab sisendis antud infot ja treeningule antud id väärtust. |
+
+```xml
+
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <addTrainingResponse xmlns="http://www.ttu.ee/idu0075/2015/ws/club">
+         <responseCode>1</responseCode>
+         <training>
+            <id>1</id>
+            <trainingName>Nike Training Club</trainingName>
+            <trainerName>Mari Maasikas</trainerName>
+            <trainingStyle>strength</trainingStyle>
+            <durationInMins>55</durationInMins>
+            <totalPlaces>45</totalPlaces>
+         </training>
+      </addTrainingResponse>
+   </S:Body>
+</S:Envelope>
+
+```
 
 #### getTraining
 ..võimaldab küsida treeningut koos seda kirjeldavate parameetritega. 
@@ -268,11 +307,42 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | token  | String | +  | Kliendi autentimiseks kasutatav kood. |
 | id | Integer | + | Treeningu unikaalne identifikaator. |
 
+```xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:id>1</club:id>
+      </club:getTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+```
+
 **Väljund:** getTrainingResponse
 
 | Andmetüüp | Kirjeldus |
 |:--- |:--- |
 | trainingType | Päringu põhjal genereeritud treeninguobjekt. Sisaldab sisendis antud infot ja treeningule antud id väärtust.|
+
+```xml
+
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <getTrainingResponse xmlns="http://www.ttu.ee/idu0075/2015/ws/club">
+         <id>1</id>
+         <trainingName>Nike Training Club</trainingName>
+         <trainerName>Mari Maasikas</trainerName>
+         <trainingStyle>strength</trainingStyle>
+         <durationInMins>55</durationInMins>
+         <totalPlaces>45</totalPlaces>
+      </getTrainingResponse>
+   </S:Body>
+</S:Envelope>
+
+```
 
 #### getTrainingList
 ..võimaldab küsida kõiki treeninguid sisaldavat nimekirja. 
@@ -288,11 +358,52 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | durationInMins | Integer | - | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
 | trainingCapacity | Integer | - | Treeningu kohtade arv. |
 
+```xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingListRequest>
+         <club:token>salajane</club:token>
+         <club:trainingStyle>strength</club:trainingStyle>
+      </club:getTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+```
+
 **Väljund:** getTrainingListResponse
 
 | Parameeter  | Andmetüüp  | Kirjeldus |
 |:--- |:--- |:---: |
 | training  | trainingType | (0 või rohkem) Treeningklubi, mis on eelnevalt sisestatud, millel on id ja sobib päringus esitatud väärtustega. |
+
+```xml
+
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <getTrainingListResponse xmlns="http://www.ttu.ee/idu0075/2015/ws/club">
+         <training>
+            <id>1</id>
+            <trainingName>Nike Training Club</trainingName>
+            <trainerName>Mari Maasikas</trainerName>
+            <trainingStyle>strength</trainingStyle>
+            <durationInMins>55</durationInMins>
+            <totalPlaces>45</totalPlaces>
+         </training>
+         <training>
+            <id>2</id>
+            <trainingName>Ringtreening</trainingName>
+            <trainerName>Mati Maasikas</trainerName>
+            <trainingStyle>strength</trainingStyle>
+            <durationInMins>50</durationInMins>
+            <totalPlaces>12</totalPlaces>
+         </training>
+      </getTrainingListResponse>
+   </S:Body>
+</S:Envelope>
+
+```
 
 #### addClubTraining
 ..võimaldab süsteemist küsida treeningute nimekirja ühes treeningklubis.
@@ -309,12 +420,56 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | endDate | date | + | Kuupäev, alates milleni treening toimub. |
 | status | statusType | + | Näitab, kas antud klubis hetkel treening toimub või mitte. |
 
+```xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addClubTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:clubId>1</club:clubId>
+         <club:trainingId>2</club:trainingId>
+         <club:startDate>2015-01-01</club:startDate>
+         <club:endDate>2019-12-31</club:endDate>
+         <club:status>active</club:status>
+      </club:addClubTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+```
+
 **Väljund:** addClubTrainingResponse
 
 | Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
 |:--- |:--- |:---: |:--- |
 | responseCode | Integer | +  | Päringust saadud unikaalne identifikaator, millega kontrollitakse *Idempotent Capability* mustrit.|
 | clubTraining | clubTrainingType | + | Kuvab küsitud treeningklubi ja sisaldab selles antavaid treeninguid. |
+
+```xml
+
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <addClubTrainingResponse xmlns="http://www.ttu.ee/idu0075/2015/ws/club">
+         <responseCode>1</responseCode>
+         <clubTraining>
+            <training>
+               <id>2</id>
+               <trainingName>Ringtreening</trainingName>
+               <trainerName>Mati Maasikas</trainerName>
+               <trainingStyle>strength</trainingStyle>
+               <durationInMins>50</durationInMins>
+               <totalPlaces>12</totalPlaces>
+            </training>
+            <startDate>2015-01-01</startDate>
+            <endDate>2019-12-31</endDate>
+            <status>active</status>
+         </clubTraining>
+      </addClubTrainingResponse>
+   </S:Body>
+</S:Envelope>
+
+```
 
 #### getClubTraining
 ..võimaldab süsteemist küsida kõiki treeninguid.
@@ -326,11 +481,49 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | token  | String | +  | Kliendi autentimiseks kasutatav kood. |
 | clubId | Integer | + | Treeningklubi identifikaator. |
 
+```xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubTrainingListRequest>
+         <club:token>salajane</club:token>
+         <club:clubId>1</club:clubId>
+      </club:getClubTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+```
+
 **Väljund:** getClubTrainingListResponse
 
 | Andmetüüp  | Kirjeldus |
 |:--- |:--- |
 | clubTrainingListType | (0 või rohkem) Treening, mis on eelnevalt sisestatud, millel on id ja on küsitud treeningklubi treeningute seas. |
+
+```xml
+
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <getClubTrainingListResponse xmlns="http://www.ttu.ee/idu0075/2015/ws/club">
+         <clubTraining>
+            <training>
+               <id>2</id>
+               <trainingName>Ringtreening</trainingName>
+               <trainerName>Mati Maasikas</trainerName>
+               <trainingStyle>strength</trainingStyle>
+               <durationInMins>50</durationInMins>
+               <totalPlaces>12</totalPlaces>
+            </training>
+            <startDate>2015-01-01</startDate>
+            <endDate>2019-12-31</endDate>
+            <status>active</status>
+         </clubTraining>
+      </getClubTrainingListResponse>
+   </S:Body>
+</S:Envelope>
+
+```
 
 ## REST API
 
