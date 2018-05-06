@@ -527,3 +527,157 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 
 ## REST API
 
+**Teenuse nimetus:** ClubWebService
+
+**API token:** salajane
+
+**Disainipõhimõtted:** Päringu ja vastuse formaadiks on JSON. REST API pöördub päringute tegemiseks SOAP-teenuse poole ja teisendab  andmed vajaminevale kujule. Operatsioonid ja elemendid on samad, mis SOAP API puhul.  
+
+### Operatsioonid
+
+#### addClub
+..võimaldab süsteemi lisada uue treeningklubi koos seda kirjeldavate parameetritega. 
+
+**HTTP meetod:** POST
+
+**Ressurss:** /clubs
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/?token=salajane>
+
+**Sisendandmed:**
+
+Sisendks on **addClubRequest** objekt.
+
+**Näidispäring:**
+
+```json
+
+{
+    "clubName": "Fitlife Kuressaare",
+    "clubCity": "Kuressaare",
+    "clubCountry": "Estonia",
+    "clubStatus": "open"
+}
+
+```
+
+**Väljundandmed:**
+
+**addClubResponse** objekt, mis sisaldab lisaks:
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| requestCode  | Integer | +  | Päringus antud requestCode. |
+| id | Integer | + | Treeningklubi identifikaator, antakse süsteemi poolt. |
+
+**Näidisväljund:**
+
+```json
+
+{
+   "responseCode": 3,
+   "club":    {
+      "id": 3,
+      "clubName": "Fitlife Kuressaare",
+      "clubCity": "Kuressaare",
+      "clubCountry": "Estonia",
+      "clubStatus": "open",
+      "clubTrainingList": {"clubTraining": []}
+   }
+}
+
+```
+
+#### getClub
+..võimaldab süsteemist küsida treeningklubi sellele määratud ID põhjal. 
+
+**HTTP meetod:** GET
+
+**Ressurss:** /clubs/{id}
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/1/?token=salajane>
+
+**Väljundandmed:**
+
+**ClubType** objekt.
+
+**Näidisväljund:**
+
+```json
+
+{
+   "id": 1,
+   "clubName": "MyFitness Viru",
+   "clubCity": "Tallinn",
+   "clubCountry": "Eesti",
+   "clubStatus": "open",
+   "clubTrainingList": {"clubTraining": [   {
+      "training":       {
+         "id": 2,
+         "trainingName": "Ringtreening",
+         "trainerName": "Mati Maasikas",
+         "trainingStyle": "strength",
+         "durationInMins": 50,
+         "totalPlaces": 12
+      },
+      "startDate": 1420063200000,
+      "endDate": 1577743200000,
+      "status": "active"
+   }]}
+}
+
+```
+
+#### getClubList
+..võimaldab süsteemist küsida treeningklubide nimekirja. Otsingut saab filtreerida linna, riigi, nime ja treeningute olemasolu järgi.
+
+#### addTraining
+..võimaldab süsteemi lisada uue treeningu koos seda kirjeldavate parameetritega. 
+
+#### getTraining
+..võimaldab küsida treeningut koos seda kirjeldavate parameetritega. 
+
+#### getTrainingList
+..võimaldab küsida kõiki treeninguid sisaldavat nimekirja. 
+
+#### addClubTraining
+..võimaldab süsteemist küsida treeningute nimekirja ühes treeningklubis.
+
+#### getClubTraining
+..võimaldab süsteemist küsida kõiki treeninguid.
+
+
+Kõik teenuse operatsioonid tuleb dokumenteerida ja dokumentatsioonis peavad olema toodud vähemalt järgmised punktid:
+•	Teenuse operatsiooni nimetus
+o	Operatsiooni tekstiline lühikirjeldus
+o	HTTP meetod
+o	Ressurss
+o	Näidis URL
+o	Sisendandmete kirjeldus
+♣	Nimetus
+♣	Andmetüüp
+♣	Kohustuslikkus
+♣	Kommentaar (võimalike väärtuste näiteid)
+o	Näidis JSON päring kui POST või PUT meetod (request)
+o	Väljundandmete kirjeldus
+♣	Nimetus
+♣	Andmetüüp
+♣	Kohustuslikkus
+♣	Kommentaar (võimalike väärtuste näiteid)
+o	Näidis JSON vastus (response)
+
+
