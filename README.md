@@ -49,7 +49,7 @@ Käesolev dokumentatsioon on mõeldud teenuse funktsionaalsuse paremaks mõistmi
 | trainerName | String |+ | Treeneri nimi. |
 | trainingStyle | String |+ | *trainingStyleType*. Treeningu stiil.|
 | durationInMins | Integer |+ | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
-| trainingCapacity | Integer |+ | Treeningu kohtade arv. |
+| totalPlaces | Integer |+ | Treeningu kohtade arv. |
 
 * **clubTrainingType**
 
@@ -249,7 +249,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | trainerName | String |+ | Treeneri nimi. |
 | trainingStyle | String |+ | *trainingStyleType*. Treeningu stiil.|
 | durationInMins | Integer |+ | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
-| trainingCapacity | Integer |+ | Treeningu kohtade arv. |
+| totalPlaces | Integer |+ | Treeningu kohtade arv. |
 
 ```xml
 
@@ -356,7 +356,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 | trainerName | String | - | Treeneri nimi. |
 | trainingStyle | trainingStyleType | - | Treeningu stiil.|
 | durationInMins | Integer | - | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
-| trainingCapacity | Integer | - | Treeningu kohtade arv. |
+| totalPlaces | Integer | - | Treeningu kohtade arv. |
 
 ```xml
 
@@ -553,7 +553,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 
 **Sisendandmed:**
 
-Sisendks on **addClubRequest** objekt.
+Sisendiks on **addClubRequest** objekt.
 
 **Näidispäring:**
 
@@ -574,7 +574,7 @@ Sisendks on **addClubRequest** objekt.
 
 | Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
 |:--- |:--- |:---: |:--- |
-| requestCode  | Integer | +  | Päringus antud requestCode. |
+| responseCode  | Integer | +  | Päringus antud requestCode. |
 | id | Integer | + | Treeningklubi identifikaator, antakse süsteemi poolt. |
 
 **Näidisväljund:**
@@ -645,39 +645,179 @@ Sisendks on **addClubRequest** objekt.
 #### getClubList
 ..võimaldab süsteemist küsida treeningklubide nimekirja. Otsingut saab filtreerida linna, riigi, nime ja treeningute olemasolu järgi.
 
+**HTTP meetod:** GET
+
+**Ressurss:** /clubs/
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| clubCity | String |- | Linn, kus treeningklubi asub. |
+| clubCountry | String |- | Riik, kus treeningklubi asub. |
+| clubName | String | - | Treeningklubi nimi. |
+| hasRelatedTrainings | hasRelatedTrainingsType | - | Võimalikud väärtused: "yes", "no". |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs?token=salajane&city=Kuressaare>
+
+**Väljundandmed:**
+
+**getClubListResponse** nimekiri klubidest, mis sobivad esitatud parameetritega.
+
+**Näidisväljund:**
+
+```json
+
+{"club": [{
+   "id": 3,
+   "clubName": "Fitlife Kuressaare",
+   "clubCity": "Kuressaare",
+   "clubCountry": "Estonia",
+   "clubStatus": "open",
+   "clubTrainingList": {"clubTraining": []}
+}]}
+
+```
+
 #### addTraining
 ..võimaldab süsteemi lisada uue treeningu koos seda kirjeldavate parameetritega. 
+
+**HTTP meetod:** POST
+
+**Ressurss:** /trainings
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/trainings/?token=salajane>
+
+**Sisendandmed:**
+
+Sisendiks on **addTrainingRequest** objekt.
+
+**Näidispäring:**
+
+```json
+
+{
+    "trainingName": "Dance",
+    "trainerName": "Kati Karu",
+    "trainingStyle": "bodyAndMind",
+    "durationInMins": 65,
+    "totalPlaces": 30
+}
+
+```
+
+**Väljundandmed:**
+
+**addTrainingResponse** objekt, mis sisaldab lisaks:
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| responseCode  | Integer | +  | Päringus antud requestCode. |
+| id | Integer | + | Treeningklubi identifikaator, antakse süsteemi poolt. |
+
+**Näidisväljund:**
+
+```json
+
+{
+   "responseCode": 3,
+   "training":    {
+      "id": 4,
+      "trainingName": "Dance",
+      "trainerName": "Kati Karu",
+      "trainingStyle": "bodyAndMind",
+      "durationInMins": 65,
+      "totalPlaces": 30
+   }
+}
+
+```
 
 #### getTraining
 ..võimaldab küsida treeningut koos seda kirjeldavate parameetritega. 
 
+**HTTP meetod:** GET
+
+**Ressurss:** /trainings/{id}
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/trainings/1/?token=salajane>
+
+**Väljundandmed:**
+
+**TrainingType** objekt.
+
+**Näidisväljund:**
+
+```json
+
+{
+   "id": 1,
+   "trainingName": "Nike Training Club",
+   "trainerName": "Mari Maasikas",
+   "trainingStyle": "strength",
+   "durationInMins": 55,
+   "totalPlaces": 45
+}
+
+```
+
 #### getTrainingList
 ..võimaldab küsida kõiki treeninguid sisaldavat nimekirja. 
+
+**HTTP meetod:** GET
+
+**Ressurss:** /trainings/
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| trainingName | String | - | Treeningu nimetus. |
+| trainerName | String | - | Treeneri nimi. |
+| trainingStyle | trainingStyleType | - | Treeningu stiil.|
+| durationInMins | Integer | - | Arvuline väärtus, mis kirjeldab, kui kaua treening kestab.|
+| totalPlaces | Integer | - | Treeningu kohtade arv. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/trainings?token=salajane>
+
+**Väljundandmed:**
+
+**getTrainingListResponse** nimekiri treeningutest, mis sobivad esitatud parameetritega.
+
+**Näidisväljund:**
+
+```json
+
+{"training": [{
+    "id":1,
+    "trainingName":"Nike Training Club",
+    "trainerName":"Mari Maasikas",
+    "trainingStyle":"strength",
+    "durationInMins":55,
+    "totalPlaces":45
+    }
+    ]}
+
+```
 
 #### addClubTraining
 ..võimaldab süsteemist küsida treeningute nimekirja ühes treeningklubis.
 
 #### getClubTraining
 ..võimaldab süsteemist küsida kõiki treeninguid.
-
-
-Kõik teenuse operatsioonid tuleb dokumenteerida ja dokumentatsioonis peavad olema toodud vähemalt järgmised punktid:
-•	Teenuse operatsiooni nimetus
-o	Operatsiooni tekstiline lühikirjeldus
-o	HTTP meetod
-o	Ressurss
-o	Näidis URL
-o	Sisendandmete kirjeldus
-♣	Nimetus
-♣	Andmetüüp
-♣	Kohustuslikkus
-♣	Kommentaar (võimalike väärtuste näiteid)
-o	Näidis JSON päring kui POST või PUT meetod (request)
-o	Väljundandmete kirjeldus
-♣	Nimetus
-♣	Andmetüüp
-♣	Kohustuslikkus
-♣	Kommentaar (võimalike väärtuste näiteid)
-o	Näidis JSON vastus (response)
-
-
