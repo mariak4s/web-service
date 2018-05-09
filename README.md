@@ -864,7 +864,7 @@ Sisendiks on **addClubTrainingRequest** objekt.
 #### getClubTraining
 ..võimaldab süsteemist küsida kõiki treeninguid.
 
-**HTTP meetod:** POST
+**HTTP meetod:** GET
 
 **Ressurss:** /clubs/{id}/trainings
 
