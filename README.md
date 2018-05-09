@@ -406,7 +406,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 ```
 
 #### addClubTraining
-..võimaldab süsteemist küsida treeningute nimekirja ühes treeningklubis.
+..võimaldab süsteemi lisada treeningut valitud treeningklubisse. 
 
 **Sisend:** addClubTrainingRequest
 
@@ -472,7 +472,7 @@ NB! *token* on vajalik vaid päringu õnnestumiseks. Response ei kuva *token*-i 
 ```
 
 #### getClubTraining
-..võimaldab süsteemist küsida kõiki treeninguid.
+..võimaldab süsteemist küsida kõiki treeninguid valitud klubis.
 
 **Sisend:** getClubTrainingListRequest
 
@@ -817,7 +817,82 @@ Sisendiks on **addTrainingRequest** objekt.
 ```
 
 #### addClubTraining
-..võimaldab süsteemist küsida treeningute nimekirja ühes treeningklubis.
+..võimaldab süsteemist kuvada treeningute nimekirja ühes treeningklubis.
+
+**HTTP meetod:** POST
+
+**Ressurss:** /clubs/{id}/trainings
+
+Sisendiks on **addClubTrainingRequest** objekt.
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/1/trainings?token=salajane&requestCode=1>
+
+**Väljundandmed:**
+
+**addClubTrainingResponse**, mis sisaldab lisaks requestCode'le infot treeningu kohta.
+
+**Näidisväljund:**
+
+```json
+
+{
+   "responseCode": "1",
+   "clubTraining": {
+      "training": {
+         "id": "1",
+         "trainingName": "Ringtreening",
+         "trainerName": "Mati Maasikas",
+         "trainingStyle": "strength",
+         "durationInMins": "50",
+         "totalPlaces": "12"
+          },
+          "startDate": "2015-01-01",
+          "endDate": "2019-12-31",
+          "status": "active"
+   }
+}
+   
+```
 
 #### getClubTraining
 ..võimaldab süsteemist küsida kõiki treeninguid.
+
+**HTTP meetod:** POST
+
+**Ressurss:** /clubs/{id}/trainings
+
+**Päringu õnnestumiseks vajaminevad parameetrid:**
+
+| Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
+|:--- |:--- |:---: |:--- |
+| token  | String | +  | Kliendi autentimiseks kasutatav kood. |
+| clubId | Integer | + | Klubi identifitseeriv kood. |
+
+**Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/{id}/trainings?token=salajane>
+
+**Väljundandmed:**
+
+**clubTrainingListType** nimekiri treeningutest, mis sobivad esitatud parameetritega.
+
+```json
+
+{"clubTraining":[{
+   "training":{
+      "id":1,
+      "trainingName":"Ringtreening",
+      "trainerName":"Mati Maasikas",
+      "trainingStyle":"strength",
+      "durationInMins":50,
+      "totalPlaces":12},
+      "startDate":1420063200000,
+      "endDate":1577743200000,
+      "status":"active"}]}
+
+```
