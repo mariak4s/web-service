@@ -165,7 +165,7 @@
                         <xs:element minOccurs="0" name="trainerName" type="xs:string"/>
                         <xs:element minOccurs="0" name="trainingStyle" type="tns:trainingStyleType"/>
                         <xs:element minOccurs="0" name="durationInMins" type="xs:integer"/>
-                        <xs:element minOccurs="0" name="trainingCapacity" type="xs:integer"/>
+                        <xs:element minOccurs="0" name="totalPlaces" type="xs:integer"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
