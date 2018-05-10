@@ -607,7 +607,6 @@ Sisendiks on **addClubRequest** objekt.
 | Parameeter  | Andmetüüp | Kohustuslik  | Kirjeldus |
 |:--- |:--- |:---: |:--- |
 | token  | String | +  | Kliendi autentimiseks kasutatav kood. |
-| requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
 
 **Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/1/?token=salajane>
 
@@ -833,6 +832,25 @@ Sisendiks on **addClubTrainingRequest** objekt.
 | requestCode | Integer | + | Päringu tuvastamiseks selle unikaalne identifikaator. |
 
 **Näidis URL:** <http://localhost:8080/ClubWebApplication/webresources/clubs/1/trainings?token=salajane&requestCode=1>
+
+**Sisendandmed:**
+
+Sisendiks on **addClubTrainingRequest** objekt.
+
+**Näidispäring:**
+
+```json
+
+{
+        "requestCode": "1",
+        "clubId": "1",
+        "trainingId": "1",
+        "startDate": "2015-01-01",
+        "endDate": "2019-12-31",
+        "status": "active"
+ }
+
+```
 
 **Väljundandmed:**
 
