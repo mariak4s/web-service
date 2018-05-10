@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "0d5c03a2-1ba9-45a6-991b-db04ed1c88c1",
+		"name": "clubWebTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addClubTest",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "72c4cc75-262c-42da-b8a8-dd36b6d6e497",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0516a92b-dedf-46d0-b61c-bcbedb5a8467",
+						"type": "text/javascript",
+						"exec": [
+							"var schema = {",
+							"    \"responseCode\": 0,",
+							"    \"club\": {",
+							"        \"id\": 3,",
+							"        \"clubName\": \"Fitlife Kuressaare\",",
+							"        \"clubCity\": \"Kuressaare\",",
+							"        \"clubCountry\": \"Estonia\",",
+							"        \"clubStatus\": \"open\",",
+							"        \"clubTrainingList\": {",
+							"            \"clubTraining\": []",
+							"        }",
+							"    }",
+							"};",
+							"",
+							"var data1 = [true, false];",
+							"var data2 = [true, 123];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Response body contains clubCountry\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"clubCountry\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clubName\": \"Fitlife Kuressaare\",\n    \"clubCity\": \"Kuressaare\",\n    \"clubCountry\": \"Estonia\",\n    \"clubStatus\": \"open\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/clubs/?token=salajane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"clubs",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						}
+					]
+				},
+				"description": "1. Check if the response is JSON.\n2. Check if the response contains clubCountry."
+			},
+			"response": []
+		},
+		{
+			"name": "getClubTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b3a6020-fa07-4871-a44d-df39ed68b3b9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response body contains clubStatus\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"clubStatus\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/clubs/?token=salajane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"clubs",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						}
+					]
+				},
+				"description": "Test, whether response body contains clubStatus."
+			},
+			"response": []
+		},
+		{
+			"name": "getClubListTest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addTrainingTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c23c6b7c-398a-4dce-803a-6a84b9fa8a94",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response body contains Dance\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Dance\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"requestCode\" : 1,\n    \"trainingName\": \"Dance\",\n    \"trainerName\": \"Kati Karu\",\n    \"trainingStyle\": \"bodyAndMind\",\n    \"durationInMins\": 65,\n    \"totalPlaces\": 30\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/trainings/?token=salajane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"trainings",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						}
+					]
+				},
+				"description": "Test, whether response body contains Dance."
+			},
+			"response": []
+		},
+		{
+			"name": "getTrainingTest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": "Test, whether response body contains 'ringtreening'"
+			},
+			"response": []
+		},
+		{
+			"name": "getTrainingListTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "733d944c-ca40-488f-aa10-c42f0859f51d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response body contains totalPlaces\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"totalPlaces\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/trainings/?token=salajane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"trainings",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						}
+					]
+				},
+				"description": "Test, whether response contains totalPlaces"
+			},
+			"response": []
+		},
+		{
+			"name": "addClubTrainingTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed7d550d-fe2b-4efe-a3a5-d4a23695ae37",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response body contains responseCode\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"responseCode\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"requestCode\": \"1\",\n        \"clubId\": \"1\",\n        \"trainingId\": \"1\",\n        \"startDate\": \"2015-01-01\",\n        \"endDate\": \"2019-12-31\",\n        \"status\": \"active\"\n }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/clubs/1/trainings?token=salajane&requestCode=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"clubs",
+						"1",
+						"trainings"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						},
+						{
+							"key": "requestCode",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Test, whether response contains responseCOde"
+			},
+			"response": []
+		},
+		{
+			"name": "getClubTrainingTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f8d5f38-ae3f-48ea-ab36-2d02c783871f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response body contains clubTraining\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"clubTraining\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/ClubWebApplication/webresources/clubs/1/trainings?token=salajane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ClubWebApplication",
+						"webresources",
+						"clubs",
+						"1",
+						"trainings"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "salajane"
+						}
+					]
+				},
+				"description": "Test, whether response body contains clubTraining"
+			},
+			"response": []
+		}
+	]
+}
