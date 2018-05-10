@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ttu.ee/idu0075/2015/ws/club" targetNamespace="http://www.ttu.ee/idu0075/2015/ws/club">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://www.ttu.ee/idu0075/2015/ws/club" elementFormDefault="qualified">
+            
+            <xs:simpleType name="trainingStyleType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="strength|cardio|bodyAndMind"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="hasRelatedTrainingsType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="yes|no"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="clubStatusType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="open|closed"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="statusType">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="active|inactive"/>
+                </xs:restriction>
+            </xs:simpleType>
+ 
+            <xs:complexType name="clubType">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:integer"/>
+                    <xs:element name="clubName" type="xs:string"/>
+                    <xs:element name="clubCity" type="xs:string"/>
+                    <xs:element name="clubCountry" type="xs:string"/>
+                    <xs:element name="clubStatus" type="tns:clubStatusType"/>
+                    <xs:element name="clubTrainingList" type="tns:clubTrainingListType"/>
+                </xs:sequence>
+            </xs:complexType>           
+            
+            <xs:complexType name="trainingType">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:integer"/>
+                    <xs:element name="trainingName" type="xs:string"/>
+                    <xs:element name="trainerName" type="xs:string"/>
+                    <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
+                    <xs:element name="durationInMins" type="xs:integer"/>
+                    <xs:element name="totalPlaces" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="clubTrainingType">
+                <xs:sequence>
+                    <xs:element name="training" type="tns:trainingType"/>
+                    <xs:element name="startDate" type="xs:date"/>
+                    <xs:element name="endDate" type="xs:date"/>
+                    <xs:element name="status" type="tns:statusType"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="clubTrainingListType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="clubTraining" type="tns:clubTrainingType"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:element name="addClubRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="requestCode" type="xs:integer"/>
+                        <xs:element name="clubName" type="xs:string"/>
+                        <xs:element name="clubCity" type="xs:string"/>
+                        <xs:element name="clubCountry" type="xs:string"/>
+                        <xs:element name="clubStatus" type="tns:clubStatusType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="addClubResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="responseCode" type="xs:integer"/>
+                        <xs:element name="club" type="tns:clubType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="id" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubResponse" type="tns:clubType"/>
+
+           <xs:element name="getClubListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubCity" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubCountry" type="xs:string"/>
+                        <xs:element minOccurs="0" name="clubStatus" type="tns:clubStatusType"/>
+                        <xs:element minOccurs="0" name="hasRelatedTrainings" type="tns:hasRelatedTrainingsType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="club" type="tns:clubType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="addTrainingRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="requestCode" type="xs:integer"/>
+                        <xs:element name="trainingName" type="xs:string"/>
+                        <xs:element name="trainerName" type="xs:string"/>
+                        <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
+                        <xs:element name="durationInMins" type="xs:integer"/>
+                        <xs:element name="totalPlaces" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="addTrainingResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="responseCode" type="xs:integer"/>
+                        <xs:element name="training" type="tns:trainingType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getTrainingRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="id" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getTrainingResponse" type="tns:trainingType"/>
+
+            <xs:element name="getTrainingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element minOccurs="0" name="trainingName" type="xs:string"/>
+                        <xs:element minOccurs="0" name="trainerName" type="xs:string"/>
+                        <xs:element minOccurs="0" name="trainingStyle" type="tns:trainingStyleType"/>
+                        <xs:element minOccurs="0" name="durationInMins" type="xs:integer"/>
+                        <xs:element minOccurs="0" name="totalPlaces" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <xs:element name="getTrainingListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" name="training" type="tns:trainingType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addClubTrainingRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="requestCode" type="xs:integer"/>
+                        <xs:element name="clubId" type="xs:integer"/>
+                        <xs:element name="trainingId" type="xs:integer"/>
+                        <xs:element name="startDate" type="xs:date"/>
+                        <xs:element name="endDate" type="xs:date"/>
+                        <xs:element name="status" type="tns:statusType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addClubTrainingResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="responseCode" type="xs:integer"/>
+                        <xs:element name="clubTraining" type="tns:clubTrainingType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubTrainingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="clubId" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getClubTrainingListResponse" type="tns:clubTrainingListType"/>
+            
+        </xs:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="getTrainingMessageRequest">
+        <wsdl:part name="parameter" element="tns:getTrainingRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getTrainingMessageResponse">
+        <wsdl:part name="parameter" element="tns:getTrainingResponse"/>
+    </wsdl:message>
+    <wsdl:message name="addTrainingMessageRequest">
+        <wsdl:part name="parameter" element="tns:addTrainingRequest"/>
+    </wsdl:message>
+    <wsdl:message name="addTrainingMessageResponse">
+        <wsdl:part name="parameter" element="tns:addTrainingResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getTrainingListMessageRequest">
+        <wsdl:part name="parameter" element="tns:getTrainingListRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getTrainingListMessageResponse">
+        <wsdl:part name="parameter" element="tns:getTrainingListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getClubMessageRequest">
+        <wsdl:part name="parameter" element="tns:getClubRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getClubMessageResponse">
+        <wsdl:part name="parameter" element="tns:getClubResponse"/>
+    </wsdl:message>
+    <wsdl:message name="addClubMessageRequest">
+        <wsdl:part name="parameter" element="tns:addClubRequest"/>
+    </wsdl:message>
+    <wsdl:message name="addClubMessageResponse">
+        <wsdl:part name="parameter" element="tns:addClubResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getClubListMessageRequest">
+        <wsdl:part name="parameter" element="tns:getClubListRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getClubListMessageResponse">
+        <wsdl:part name="parameter" element="tns:getClubListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getClubTrainingListMessageRequest">
+        <wsdl:part name="parameter" element="tns:getClubTrainingListRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getClubTrainingListMessageResponse">
+        <wsdl:part name="parameter" element="tns:getClubTrainingListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="addClubTrainingMessageRequest">
+        <wsdl:part name="parameter" element="tns:addClubTrainingRequest"/>
+    </wsdl:message>
+    <wsdl:message name="addClubTrainingMessageResponse">
+        <wsdl:part name="parameter" element="tns:addClubTrainingResponse"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="clubPortType">
+        <wsdl:operation name="getTraining">
+            <wsdl:input message="tns:getTrainingMessageRequest"/>
+            <wsdl:output message="tns:getTrainingMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="addTraining">
+            <wsdl:input message="tns:addTrainingMessageRequest"/>
+            <wsdl:output message="tns:addTrainingMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getTrainingList">
+            <wsdl:input message="tns:getTrainingListMessageRequest"/>
+            <wsdl:output message="tns:getTrainingListMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getClub">
+            <wsdl:input message="tns:getClubMessageRequest"/>
+            <wsdl:output message="tns:getClubMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="addClub">
+            <wsdl:input message="tns:addClubMessageRequest"/>
+            <wsdl:output message="tns:addClubMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getClubList">
+            <wsdl:input message="tns:getClubListMessageRequest"/>
+            <wsdl:output message="tns:getClubListMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getClubTrainingList">
+            <wsdl:input message="tns:getClubTrainingListMessageRequest"/>
+            <wsdl:output message="tns:getClubTrainingListMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="addClubTraining">
+            <wsdl:input message="tns:addClubTrainingMessageRequest"/>
+            <wsdl:output message="tns:addClubTrainingMessageResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="clubBinding" type="tns:clubPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getTraining">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addTraining">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTrainingList">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClub">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addClub">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClubList">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClubTrainingList">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addClubTraining">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="clubService">
+        <wsdl:port name="clubPort" binding="tns:clubBinding">
+            <soap:address location="http://localhost:8080/ClubWebApplication/clubService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
