@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="1a91f2ef-4815-4954-add4-b5ef7159ec8a" activeEnvironment="Default" name="clubService?wsdl" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="b9662517-7b64-4bc1-8860-0f5951a52662" wsaVersion="NONE" name="clubBinding" type="wsdl" bindingName="{http://www.ttu.ee/idu0075/2015/ws/club}clubBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ClubWebApplication/clubService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ClubWebApplication/clubService?wsdl"><con:part><con:url>http://localhost:8080/ClubWebApplication/clubService?wsdl</con:url><con:content><![CDATA[<!--Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown.-->
+<wsdl:definitions targetNamespace="http://www.ttu.ee/idu0075/2015/ws/club" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ttu.ee/idu0075/2015/ws/club">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://www.ttu.ee/idu0075/2015/ws/club" elementFormDefault="qualified">
+      <xs:simpleType name="trainingStyleType">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="strength|cardio|bodyAndMind"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="hasRelatedTrainingsType">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="yes|no"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="clubStatusType">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="open|closed"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="statusType">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="active|inactive"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="clubType">
+        <xs:sequence>
+          <xs:element name="id" type="xs:integer"/>
+          <xs:element name="clubName" type="xs:string"/>
+          <xs:element name="clubCity" type="xs:string"/>
+          <xs:element name="clubCountry" type="xs:string"/>
+          <xs:element name="clubStatus" type="tns:clubStatusType"/>
+          <xs:element name="clubTrainingList" type="tns:clubTrainingListType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="trainingType">
+        <xs:sequence>
+          <xs:element name="id" type="xs:integer"/>
+          <xs:element name="trainingName" type="xs:string"/>
+          <xs:element name="trainerName" type="xs:string"/>
+          <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
+          <xs:element name="durationInMins" type="xs:integer"/>
+          <xs:element name="totalPlaces" type="xs:integer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="clubTrainingType">
+        <xs:sequence>
+          <xs:element name="training" type="tns:trainingType"/>
+          <xs:element name="startDate" type="xs:date"/>
+          <xs:element name="endDate" type="xs:date"/>
+          <xs:element name="status" type="tns:statusType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="clubTrainingListType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="clubTraining" type="tns:clubTrainingType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="addClubRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestCode" type="xs:integer"/>
+            <xs:element name="clubName" type="xs:string"/>
+            <xs:element name="clubCity" type="xs:string"/>
+            <xs:element name="clubCountry" type="xs:string"/>
+            <xs:element name="clubStatus" type="tns:clubStatusType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addClubResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="responseCode" type="xs:integer"/>
+            <xs:element name="club" type="tns:clubType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getClubRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="id" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getClubResponse" type="tns:clubType"/>
+      <xs:element name="getClubListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element minOccurs="0" name="clubCity" type="xs:string"/>
+            <xs:element minOccurs="0" name="clubCountry" type="xs:string"/>
+            <xs:element minOccurs="0" name="clubStatus" type="tns:clubStatusType"/>
+            <xs:element minOccurs="0" name="hasRelatedTrainings" type="tns:hasRelatedTrainingsType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getClubListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="club" type="tns:clubType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addTrainingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestCode" type="xs:integer"/>
+            <xs:element name="trainingName" type="xs:string"/>
+            <xs:element name="trainerName" type="xs:string"/>
+            <xs:element name="trainingStyle" type="tns:trainingStyleType"/>
+            <xs:element name="durationInMins" type="xs:integer"/>
+            <xs:element name="totalPlaces" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addTrainingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="responseCode" type="xs:integer"/>
+            <xs:element name="training" type="tns:trainingType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTrainingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="id" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTrainingResponse" type="tns:trainingType"/>
+      <xs:element name="getTrainingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element minOccurs="0" name="trainingName" type="xs:string"/>
+            <xs:element minOccurs="0" name="trainerName" type="xs:string"/>
+            <xs:element minOccurs="0" name="trainingStyle" type="tns:trainingStyleType"/>
+            <xs:element minOccurs="0" name="durationInMins" type="xs:integer"/>
+            <xs:element minOccurs="0" name="totalPlaces" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTrainingListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="training" type="tns:trainingType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addClubTrainingRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestCode" type="xs:integer"/>
+            <xs:element name="clubId" type="xs:integer"/>
+            <xs:element name="trainingId" type="xs:integer"/>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="status" type="tns:statusType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addClubTrainingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="responseCode" type="xs:integer"/>
+            <xs:element name="clubTraining" type="tns:clubTrainingType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getClubTrainingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="clubId" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getClubTrainingListResponse" type="tns:clubTrainingListType"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getTrainingMessageRequest">
+    <wsdl:part name="parameter" element="tns:getTrainingRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getTrainingMessageResponse">
+    <wsdl:part name="parameter" element="tns:getTrainingResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addTrainingMessageRequest">
+    <wsdl:part name="parameter" element="tns:addTrainingRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addTrainingMessageResponse">
+    <wsdl:part name="parameter" element="tns:addTrainingResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getTrainingListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getTrainingListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getTrainingListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getTrainingListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getClubMessageRequest">
+    <wsdl:part name="parameter" element="tns:getClubRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getClubMessageResponse">
+    <wsdl:part name="parameter" element="tns:getClubResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addClubMessageRequest">
+    <wsdl:part name="parameter" element="tns:addClubRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addClubMessageResponse">
+    <wsdl:part name="parameter" element="tns:addClubResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getClubListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getClubListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getClubListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getClubListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getClubTrainingListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getClubTrainingListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getClubTrainingListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getClubTrainingListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addClubTrainingMessageRequest">
+    <wsdl:part name="parameter" element="tns:addClubTrainingRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addClubTrainingMessageResponse">
+    <wsdl:part name="parameter" element="tns:addClubTrainingResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="clubPortType">
+    <wsdl:operation name="getTraining">
+      <wsdl:input message="tns:getTrainingMessageRequest"/>
+      <wsdl:output message="tns:getTrainingMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addTraining">
+      <wsdl:input message="tns:addTrainingMessageRequest"/>
+      <wsdl:output message="tns:addTrainingMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTrainingList">
+      <wsdl:input message="tns:getTrainingListMessageRequest"/>
+      <wsdl:output message="tns:getTrainingListMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getClub">
+      <wsdl:input message="tns:getClubMessageRequest"/>
+      <wsdl:output message="tns:getClubMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addClub">
+      <wsdl:input message="tns:addClubMessageRequest"/>
+      <wsdl:output message="tns:addClubMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getClubList">
+      <wsdl:input message="tns:getClubListMessageRequest"/>
+      <wsdl:output message="tns:getClubListMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getClubTrainingList">
+      <wsdl:input message="tns:getClubTrainingListMessageRequest"/>
+      <wsdl:output message="tns:getClubTrainingListMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addClubTraining">
+      <wsdl:input message="tns:addClubTrainingMessageRequest"/>
+      <wsdl:output message="tns:addClubTrainingMessageResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="clubBinding" type="tns:clubPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getTraining">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTraining">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTrainingList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClub">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addClub">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClubList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClubTrainingList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addClubTraining">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="clubService">
+    <wsdl:port name="clubPort" binding="tns:clubBinding">
+      <soap:address location="http://localhost:8080/ClubWebApplication/clubService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint></con:endpoints><con:operation id="bf560faa-0f10-43f0-ab5b-a15d0e0832c5" isOneWay="false" action="" name="addClub" bindingOperationName="addClub" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a05eb636-91c9-4239-8c6d-4001b7ff1311" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addClubRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:clubName>MyFitness Postimaja</club:clubName>
+         <club:clubCity>Tallinn</club:clubCity>
+         <club:clubCountry>Eesti</club:clubCountry>
+         <club:clubStatus>open</club:clubStatus>
+      </club:addClubRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addClubRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ca82729c-dbf2-49ee-9e3c-52bdbaf0fbfc" isOneWay="false" action="" name="addClubTraining" bindingOperationName="addClubTraining" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4eff72f9-df85-4881-8192-43af6e36cf74" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addClubTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:clubId>1</club:clubId>
+         <club:trainingId>1</club:trainingId>
+         <club:startDate>2015-01-01</club:startDate>
+         <club:endDate>2019-12-31</club:endDate>
+         <club:status>active</club:status>
+      </club:addClubTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addClubTrainingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="9e74432a-1708-48b7-a3d3-908250601a52" isOneWay="false" action="" name="addTraining" bindingOperationName="addTraining" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="807081ca-835e-47c3-9abd-2ccddf6027b8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:trainingName>Ringtreening</club:trainingName>
+         <club:trainerName>Mati Maasikas</club:trainerName>
+         <club:trainingStyle>strength</club:trainingStyle>
+         <club:durationInMins>50</club:durationInMins>
+         <club:totalPlaces>12</club:totalPlaces>
+      </club:addTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addTrainingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4ed64820-ac25-46d4-aca5-176386080cab" isOneWay="false" action="" name="getClub" bindingOperationName="getClub" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0b9b8764-04bf-4948-aabc-457bbdff82fc" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubRequest>
+         <club:token>salajane</club:token>
+         <club:id>2</club:id>
+      </club:getClubRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c9ccacfe-64e3-4b85-8ac1-be7abfee5020" isOneWay="false" action="" name="getClubList" bindingOperationName="getClubList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ec48541c-42cb-40a2-a89f-68de78102999" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubListRequest>
+         <club:token>salajane</club:token>
+         <!--Optional:-->
+        
+         <club:clubCity>Tallinn</club:clubCity>
+         <!--Optional:-->
+       
+    
+      </club:getClubListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="9d3c316d-d375-46c6-8fa5-532e5f41d4b2" isOneWay="false" action="" name="getClubTrainingList" bindingOperationName="getClubTrainingList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a12f830c-e681-4a80-848b-715a21b1fbbe" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubTrainingListRequest>
+         <club:token>salajane</club:token>
+         <club:clubId>1</club:clubId>
+      </club:getClubTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubTrainingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5ef18bf8-d04f-4299-b536-88f68beae67e" isOneWay="false" action="" name="getTraining" bindingOperationName="getTraining" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="29a0a091-9a0e-41b7-ab06-9a68c9f35b73" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:id>1</club:id>
+      </club:getTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getTrainingRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6de59dab-9381-4b33-ada2-37c5cfad396a" isOneWay="false" action="" name="getTrainingList" bindingOperationName="getTrainingList" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cb3e6c9e-b61f-49ef-93b4-c55a9acc44ba" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingListRequest>
+         <club:token>salajane</club:token>
+
+         <club:trainingStyle>strength</club:trainingStyle>
+
+      </club:getTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getTrainingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="136bb520-0620-41d5-8309-9c0b13943a08" name="clubBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="3946194e-6a2a-4a60-9753-08fb8f40436b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="addClub TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="412be566-c64d-47cb-929c-895249502f07" name="addClub"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>addClub</con:operation><con:request name="addClub" id="c6c31fa0-4acf-40be-b41a-6a55e69bd0d1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addClubRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:clubName>Postimaja</club:clubName>
+         <club:clubCity>Tallinn</club:clubCity>
+         <club:clubCountry>Eesti</club:clubCountry>
+         <club:clubStatus>open</club:clubStatus>
+      </club:addClubRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="f4999f4c-2061-42d7-b00f-b0c87270d7e8" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="0d19b6a0-b732-47b1-8f3e-dc73b5a0fcdf" name="Contains"><con:configuration><token>clubStatus</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addClubRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="ca99385a-6359-44b8-bbf1-33045b42fc72" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="addClubTraining TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="59d616c6-8e37-4bdd-85bb-31a3748f41c8" name="addClubTraining"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>addClubTraining</con:operation><con:request name="addClubTraining" id="c5f6b879-bec0-4626-9225-58cc157bd475"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addClubTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>1</club:requestCode>
+         <club:clubId>1</club:clubId>
+         <club:trainingId>1</club:trainingId>
+         <club:startDate>11-04-2017</club:startDate>
+         <club:endDate>11-04-2019</club:endDate>
+         <club:status>active</club:status>
+      </club:addClubTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="93b9ed91-629a-47cf-9cce-79a40a81d0a4" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="11a6a786-b935-49ec-9a10-c21436f096a6" name="Contains"><con:configuration><token>status</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addClubTrainingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="8e377dbd-775e-4992-bcd1-ac868da0ba44" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="addTraining TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="d9d30cc9-c73e-428f-949f-3c8e660b7304" name="addTraining"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>addTraining</con:operation><con:request name="addTraining" id="df0e4f98-943d-456e-a1ac-2b451f546cb8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:addTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:requestCode>2</club:requestCode>
+         <club:trainingName>BodyJam</club:trainingName>
+         <club:trainerName>Peep Paat</club:trainerName>
+         <club:trainingStyle>cardio</club:trainingStyle>
+         <club:durationInMins>40</club:durationInMins>
+         <club:totalPlaces>20</club:totalPlaces>
+      </club:addTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="6c699648-856e-4fa5-9b48-28f054f5cf26" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="634e56d3-4764-4ba6-8e6e-b653beaaff84" name="Contains"><con:configuration><token>trainingStyle</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/addTrainingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="454e3339-c23c-46ff-9a1c-7929f32826d9" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getClub TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="2b239de5-a573-4c77-a13a-d11eb3197fb7" name="getClub"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>getClub</con:operation><con:request name="getClub" id="998f969c-5af2-4189-adf5-bc28eebb4b10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubRequest>
+         <club:token>salajane</club:token>
+         <club:id>3</club:id>
+      </club:getClubRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="a9d7f5cf-6676-4745-b5f2-25a98a265c5a" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="c0efc086-019f-43d1-ac72-9c80e84f466f" name="Contains"><con:configuration><token>clubCity</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="7eeca592-0d23-4b4b-95b0-807c8449a947" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getClubList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="4a6852d7-90dc-45e8-88c4-5620642518f0" name="getClubList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>getClubList</con:operation><con:request name="getClubList" id="0f17722e-a3cf-40fa-b2f9-5c7aefea8099"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubListRequest>
+         <club:token>salajane</club:token>
+         <!--Optional:-->
+         <club:clubCity>Kuressaare</club:clubCity>
+    
+         <club:hasRelatedTrainings>no</club:hasRelatedTrainings>
+      </club:getClubListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="6d329843-413e-4c0d-8f4b-fb9a933a453c" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="afa23421-3936-4bf3-ab7d-75ebf5437c9d" name="Contains"><con:configuration><token>clubStatus</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubListRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="64e5c885-329f-41de-b2b5-7846b9ea60a1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getClubTrainingList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="3282d852-e397-4c4e-aef4-08f70f429726" name="getClubTrainingList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>getClubTrainingList</con:operation><con:request name="getClubTrainingList" id="3e575e68-2fc4-41e1-81e9-55c565072649"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getClubTrainingListRequest>
+         <club:token>salajane</club:token>
+         <club:clubId>1</club:clubId>
+      </club:getClubTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="fab7c18b-ed07-43c3-9b63-1a44ee877a0e" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="5552915f-1ef1-47d4-914b-f13d9902a17d" name="Contains"><con:configuration><token>trainingName</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getClubTrainingListRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="9fabf1ad-41b8-4425-89a0-a8a157483351" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTraining TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="9ac3aed8-b332-4575-9e2c-4a9d58567d5d" name="getTraining"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>getTraining</con:operation><con:request name="getTraining" id="b3f5d26f-736b-44be-8bf8-d6b8b383aff9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingRequest>
+         <club:token>salajane</club:token>
+         <club:id>1</club:id>
+      </club:getTrainingRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="4e04bfea-1bf2-4c88-a458-875a037c78ae" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="e51c3320-ea01-4ae6-908c-b207fe3d46fe" name="Contains"><con:configuration><token>trainingName</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getTrainingRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="6e1707ec-3496-4dec-b175-69e9d92bac9c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrainingList TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="95914ef3-5563-414d-b23d-78dc678795a2" name="getTrainingList"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>clubBinding</con:interface><con:operation>getTrainingList</con:operation><con:request name="getTrainingList" id="29981f48-1444-44ab-abe7-24abda2909b2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ClubWebApplication/clubService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:club="http://www.ttu.ee/idu0075/2015/ws/club">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <club:getTrainingListRequest>
+         <club:token>salajane</club:token>
+         
+         <club:trainingStyle>strength</club:trainingStyle>
+        
+      </club:getTrainingListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" id="3443d92b-9952-449a-9709-b4522287ea60" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="dcd0956d-22c0-4366-a37b-81732f4ed93c" name="Contains"><con:configuration><token>trainingName</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.ttu.ee/idu0075/2015/ws/club/clubPortType/getTrainingListRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
